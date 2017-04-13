@@ -1,0 +1,95 @@
+<html>
+	<head>
+    
+    	<style>
+        	#character_1 {
+            	left:0px;
+                top:0px;
+            	width:128px;
+                height:110px;
+                position:absolute;
+            	background:url('http://www.foresightalliance.com/wp-content/uploads/2014/05/ngbbs4dd5526357d9e.gif') center;
+                background-size: 128px 100px;
+            }
+        </style>
+
+    	<script>
+            	var new_direction;
+                var new_x;
+                var new_y;
+                var old_x;
+                var old_y;
+                function getPos(el) {
+                  // yay readability
+                  for (var lx=0, ly=0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+                      return {x: lx,y: ly};
+                  }
+
+			function change_direction() {
+				var newtemp = Math.floor((Math.random() * 4) + 1); 
+                if (newtemp == 1) { new_direction = "up"; }
+                if (newtemp == 2) { new_direction = "down"; }
+                if (newtemp == 3) { new_direction = "left"; }
+                if (newtemp == 4) { new_direction = "right"; }
+
+			}
+
+        	function move_character() {
+                character = document.getElementById("character_1");
+
+
+				if (new_direction == "left") {
+					old_x = getPos(character).x;
+					old_y = getPos(character).y;
+                    old_x = old_x - 10;
+					if (old_x > 0) {
+                		character.style.left = old_x;
+                    }
+                
+                } else if (new_direction == "right") {
+					old_x = getPos(character).x;
+					old_y = getPos(character).y;
+                    old_x = old_x + 10;
+					if (old_x < (window.innerWidth - 128)) {
+                		character.style.left = old_x;
+                    }
+				} else if (new_direction == "up") {
+					old_x = getPos(character).x;
+					old_y = getPos(character).y;
+                    old_y = old_y - 10;
+					if (old_y > 0) {
+                		character.style.top = old_y;
+                    }
+                
+                
+                } else if (new_direction == "down") {
+
+					old_x = getPos(character).x;
+					old_y = getPos(character).y;
+                    old_y = old_y + 10;
+					if (old_y < (window.innerHeight - 128)) {
+                		character.style.top = old_y;
+                    }
+
+                } else {
+                	new_direction = "right";
+                }
+			}
+            
+        </script>
+
+	</head>
+    <body>
+        
+        <div id="character_1" onmouseover="alert('you lose!')">
+        </div>
+		<script>
+        	setInterval("move_character()",1);
+        	setInterval("change_direction()",500);
+
+        </script>
+        
+        
+        
+    </body>
+</html>
